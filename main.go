@@ -79,15 +79,52 @@ func oddOccurrencesWithXor(A []int) int {
 	return result
 }
 
+// Worst performance, with O(y-x)
 func countMinimalJumps(X, Y, D int) int {
 
 	// the frog is located at position X and wants to get a posisition
 	// greater than or equal to Y. the frog jumps a fixed distance D
+	// X = 10
+	// Y = 85
+	// D = 30
+	// X + 30 + 30 + 30 >= Y
 
+	jumps := 0
 
+	for X < Y {
+		X += D
+		jumps += 1
+	}
 
-
-	return 0
+	return jumps
 }
 
+// Better performance, with O(1)
+func countMinimalJumpsWithoutLoop(X, Y, D int) int {
+	// Check if is divisible
+	if (Y-X)%D == 0 {
+		return (Y - X) / D
+	}
+	return (Y-X)/D + 1
+}
 
+// TODO: using with XOR
+func permMissingElem(A []int) int {
+
+	// [2, 3, 1, 5]
+	// n = 4 + 1 (missing element)
+	// (n * (n + 1)) / 2; = 15
+	// 2+3+1+5 = 11
+
+	n := len(A) + 1
+
+	totalSumAllElements := (n * (1 + n)) / 2
+
+	sum := 0
+
+	for _, elem := range A {
+		sum += elem
+	}
+
+	return totalSumAllElements - sum
+}
