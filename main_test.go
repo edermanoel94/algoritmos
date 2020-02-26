@@ -2,14 +2,32 @@ package main
 
 import (
 	"github.com/stretchr/testify/assert"
+	"math"
 	"testing"
 )
 
 func Test_gapBinary(t *testing.T) {
 
-	biggestGap := gapBinary(529)
+	testCases := []struct {
+		description string
+		input       int
+		expected    int
+	}{
+		{"should get a gap of 4", 529, 4},
+		{"should get a gap of 1", 9, 2},
+		{"should get a gap of 0", 15, 0},
+		{"should get a gap of 0", 32, 0},
+	}
 
-	assert.Equal(t, 4, biggestGap)
+	for _, tc := range testCases {
+
+		t.Run(tc.description, func(t *testing.T) {
+
+			biggestGap := gapBinary(tc.input)
+
+			assert.Equal(t, tc.expected, biggestGap)
+		})
+	}
 }
 
 func Test_cyclicRotation(t *testing.T) {
@@ -49,4 +67,25 @@ func Test_permMissingElem(t *testing.T) {
 	missing := permMissingElem([]int{2, 3, 1, 5})
 
 	assert.Equal(t, 4, missing)
+}
+
+func Test_tapeEquilibrium(t *testing.T) {
+
+	//missing := tapeEquilibrium([]int{3, 1, 2, 4, 3})
+	missing := tapeEquilibrium([]int{5, 6, 2, 4, 1})
+
+	assert.Equal(t, 4, missing)
+}
+
+func Test_frogRiverOne(t *testing.T) {
+	one := frogRiverOne(5, []int{1, 3, 1, 4, 2, 3, 5, 4})
+
+	assert.Equal(t, 6, one)
+}
+
+func Test_log(t *testing.T) {
+
+	i := log(1000)
+
+	assert.Equal(t, int(math.Log2(1000)), i)
 }
